@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.moowork.gradle.node.npm.NpmTask
-import org.gradle.language.jvm.tasks.ProcessResources;
+import org.gradle.language.jvm.tasks.ProcessResources
 
 plugins {
 	id("org.springframework.boot") version "2.3.4.RELEASE"
@@ -60,7 +60,7 @@ task<NpmTask>("buildReact") {
     setExecOverrides(closureOf<ExecSpec>{
 		this.workingDir("./frontend")
 	})
-    setArgs(listOf("build"))
+    setArgs(listOf("run", "build"))
 }
 val processResources by tasks.existing(ProcessResources::class)
 processResources {
