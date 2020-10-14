@@ -35,3 +35,6 @@ out/
 
 ### react file ###
 /src/main/resources/public/
+
+db.mv.db
+db.trace.db

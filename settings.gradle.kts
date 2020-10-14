@@ -1,1 +1,1 @@
-rootProject.name = "shit_forces"
+rootProject.name = "Shitforces"

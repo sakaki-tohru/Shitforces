@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.jdbc.core.JdbcTemplate
 
 @SpringBootApplication
-class ShitForcesApplication {
+class ShitforcesApplication {
     @Bean
 	fun createContestInfoDataBase(jdbcTemplate: JdbcTemplate) = CommandLineRunner {
 		jdbcTemplate.execute("""CREATE TABLE IF NOT EXISTS contestInfo (
@@ -26,5 +26,5 @@ class ShitForcesApplication {
 }
 
 fun main(args: Array<String>) {
-	runApplication<ShitForcesApplication>(*args)
+	runApplication<ShitforcesApplication>(*args)
 }
