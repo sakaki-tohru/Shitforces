@@ -15,6 +15,14 @@ class ShitForcesApplication {
 			startTime CHAR    
 			)""")
 	}
+	@Bean
+	fun createUserInfoDataBase(jdbcTemplate: JdbcTemplate) = CommandLineRunner {
+		jdbcTemplate.execute("""CREATE TABLE IF NOT EXISTS accountInfo (
+				userName     CHAR    PRIMARY KEY,
+				rating	     INT,
+				passwordHash CHAR 
+		)""")
+	}
 }
 
 fun main(args: Array<String>) {
