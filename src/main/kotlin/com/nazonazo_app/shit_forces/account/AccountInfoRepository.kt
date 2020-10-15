@@ -1,5 +1,6 @@
-package com.nazonazo_app.shit_forces
+package com.nazonazo_app.shit_forces.account
 
+import com.nazonazo_app.shit_forces.account.AccountInfo
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.security.crypto.bcrypt.BCrypt
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class AccountInfoRepository(private val jdbcTemplate: JdbcTemplate) {
-    private val rowMapper = RowMapper<AccountInfo> {rs, _ ->
+    private val rowMapper = RowMapper<AccountInfo> { rs, _ ->
         AccountInfo(rs.getString("userName"), rs.getInt("rating"), rs.getString("passwordHash"))
     }
     fun findAll(): List<AccountInfo> =
@@ -16,11 +17,11 @@ class AccountInfoRepository(private val jdbcTemplate: JdbcTemplate) {
     private fun hashPassword(password: String): String {
         val salt: String = BCrypt.gensalt()
         val encrypted: String = BCrypt.hashpw(password, salt)
-        return encrypted;
+        return encrypted
     }
 
     fun createAccount(accountName: String, password: String): AccountInfo? {
-        if(findByUserName(accountName) != null && false) {
+        if (findByUserName(accountName) != null && false) {
             return null
         } else {
             val newUser = AccountInfo(accountName, 0, hashPassword(password))
@@ -38,5 +39,4 @@ class AccountInfoRepository(private val jdbcTemplate: JdbcTemplate) {
         return if (accounts.isEmpty()) null
         else accounts[0]
     }
-
 }

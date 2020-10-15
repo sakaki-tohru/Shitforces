@@ -1,4 +1,4 @@
-package com.nazonazo_app.shit_forces
+package com.nazonazo_app.shit_forces.account
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.google.gson.Gson
@@ -10,13 +10,13 @@ class AccountController(private val accountInfoRepository: AccountInfoRepository
     private data class Response(val result: Boolean, val statement: String = "")
     data class RequestedAccount @JsonCreator constructor(val name: String, val password: String)
 
-    @RequestMapping("signin/new-account", headers = ["Content-Type=application/json"],
+    @RequestMapping("db-access/new-account", headers = ["Content-Type=application/json"],
             method = [RequestMethod.POST])
     fun createNewAccount(@RequestBody requestAccount: RequestedAccount): String {
         val response = try {
             accountInfoRepository.createAccount(requestAccount.name, requestAccount.password)
             Response(true)
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             Response(false, e.toString())
         }
         return Gson().toJson(response)

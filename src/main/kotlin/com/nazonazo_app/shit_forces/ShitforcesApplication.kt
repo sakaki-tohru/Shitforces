@@ -9,22 +9,22 @@ import org.springframework.jdbc.core.JdbcTemplate
 @SpringBootApplication
 class ShitforcesApplication {
     @Bean
-	fun createContestInfoDataBase(jdbcTemplate: JdbcTemplate) = CommandLineRunner {
-		jdbcTemplate.execute("""CREATE TABLE IF NOT EXISTS contestInfo (
+    fun createContestInfoDataBase(jdbcTemplate: JdbcTemplate) = CommandLineRunner {
+        jdbcTemplate.execute("""CREATE TABLE IF NOT EXISTS contestInfo (
     		name 	  INT	 PRIMARY KEY,
-			startTime CHAR    
+			startTime DATETIME    
 			)""")
-	}
-	@Bean
-	fun createUserInfoDataBase(jdbcTemplate: JdbcTemplate) = CommandLineRunner {
-		jdbcTemplate.execute("""CREATE TABLE IF NOT EXISTS accountInfo (
+    }
+    @Bean
+    fun createUserInfoDataBase(jdbcTemplate: JdbcTemplate) = CommandLineRunner {
+        jdbcTemplate.execute("""CREATE TABLE IF NOT EXISTS accountInfo (
 				userName     CHAR    PRIMARY KEY,
 				rating	     INT,
 				passwordHash CHAR 
 		)""")
-	}
+    }
 }
 
 fun main(args: Array<String>) {
-	runApplication<ShitforcesApplication>(*args)
+    runApplication<ShitforcesApplication>(*args)
 }
