@@ -12,4 +12,5 @@ npm install
 ./gradlew bootrun
 
 ### 良く分からない場合
-IntelliJ(他のIDEは未確認です)ならプロジェクト開いて実行ボタンで実行できます。
+IntelliJ(他のIDEは未確認です)ならプロジェクト開いて実行ボタンで実行できます。<br>
+詳しくは、Document.mdを参照して下さい。
