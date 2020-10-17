@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.stereotype.Repository
 
 @Repository
-class AccountInfoRepository(private val jdbcTemplate: JdbcTemplate) {
+class AccountsInfoRepository(private val jdbcTemplate: JdbcTemplate) {
     private val rowMapper = RowMapper<AccountInfo> { rs, _ ->
         AccountInfo(rs.getString("userName"), rs.getInt("rating"), rs.getString("passwordHash"))
     }

@@ -1,5 +1,6 @@
 import React from "react";
 import {Form, Button} from "react-bootstrap";
+import HttpRequest from "./share-func/HTTPRequest";
 // URL: /sighin
 const MAX_LENGTH = 20;
 const MIN_LENGTH = 4;
@@ -25,7 +26,7 @@ export default class SignInPage extends React.Component {
     this.passwordInput = React.createRef();
     this.submitNewAccountCreate = this.submitNewAccountCreate.bind(this);
   }
-  submitNewAccountCreate() {
+  async submitNewAccountCreate() {
     const accountName = this.accountNameInput.current.value;
     const password = this.passwordInput.current.value;
     if (!isValidUserNameOrPassWord(accountName) || !isValidUserNameOrPassWord(password)) {
@@ -36,26 +37,12 @@ export default class SignInPage extends React.Component {
         "name": accountName,
         "password": password,
       });
-      fetch(fetchTo, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: jsonBody
-      })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("サーバー接続の際にエラーが発生しました");
-          }
-          return response.text();
-        })
-        .then (responseText => {
-          const resObject = JSON.parse(responseText);
-          console.log(resObject);
-        })
-        .catch(error => {
-          alert(error);
-        });
+      const response = await HttpRequest(fetchTo, jsonBody, "POST");
+      if (response.result) {
+        alert("アカウントの作成に成功しました");
+      } else {
+        alert("アカウントの作成に失敗しました 名前が重複しています");
+      }
     }
   }
   render() {

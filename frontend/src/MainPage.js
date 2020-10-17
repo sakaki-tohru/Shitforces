@@ -8,10 +8,6 @@ import PropTypes from 'prop-types';
           And other user's ranking and so on.
  */
 // URL: /
-ContestCard.propTypes = {
-  contestInfo: PropTypes.array,
-  contestId: PropTypes.string
-};
 class ContestCard extends React.Component {
   render() {
     const contestInfo = this.props.contestInfo;
@@ -30,7 +26,7 @@ class ContestCard extends React.Component {
       <div className="contest-card card">
         <div className="contest-card-body card-body">
           <Link to={contestPath}>
-            <h2 className="card-title contest-card-title">
+            <h2 className="card-titl contest-card-title">
               {contestInfo.title}
             </h2>
           </Link>
@@ -48,6 +44,10 @@ class ContestCard extends React.Component {
     );
   }
 }
+ContestCard.propTypes = {
+  contestInfo: PropTypes.array,
+  contestId: PropTypes.string
+};
 export default class MainPage extends React.Component {
   constructor(props) {
     super(props);

@@ -1,3 +1,10 @@
+# ビルド
+npmを利用しているのでnodeのパスを通す必要がある。<br>
+実行前に、/frontend にてnpm install を実行。
+Spring boot(Gradle)が動かせるIDE(IntelliJのみ確認済み)なら実行ボタンで動かせる。
+そうでなくとも gradlew bootrun でも実行可能。<br>
+成功すると、localhost:8080に環境が立ち上がる。
+
 # フロントエンドについて
 フロントエンドではReactを使用しています。パッケージ管理はnpmです。<br>
 SPAサイトとして作るつもりです。
@@ -19,21 +26,33 @@ URLに応じて、以下のようにindex.jsがページ遷移を行うように
 - / (ルート) <br>
 MainPage.jsによる、ホームのページ表示です。<br>
 最新のコンテスト、ランキング等の表宇を行います。<br>
-それぞれクリック時にコンテストページや、ランキングページに飛ぶようにします。
+それぞれクリック時にコンテストページや、ランキングページに飛ぶように。
 
 - /signin <br>
-SignInPage.jsによるアカウント作成ページです。<br>
-ユーザー名とパスワード(4文字以上、アルファベットと_-)から成る文字を入力できるフォームを作成し、
-ボタンを押したら/db-access/new-account に対してJSON文字列によるPOSTリクエストを送信。<br>
-型は{"name": アカウント名, "password": パスワード}<br>
-レスポンスとしてJSON文字列が帰ってくる。これの型は{"result": Bool値, "statement": 詳細情報}<br>
-成功した(result=true)ならログインページへ、失敗したならalert()
+SignInPage.jsによるアカウント作成ページ。<br>
 
 - /login <br>
 ユーザー名とパスワード周りは/signinと同じ。<br>
-ボタンを押したら/login/login-account に対してPOST。
-送信する型は同じ、レスポンスはJSON文字列で型はサインインと同じで、
-成功していたら上のセッションidも付与される。
 
 - /contest/$contestName <br>
-$contestNameはコンテストの名前、
+$contestNameはコンテストの名前、問題とかがある
+参加可能は、出た問題に関わっているWriter Admin権限有は参加不可。
+
+- /coordinate <br>
+Writer Adminのみアクセス可能。Writerは作問ページへ、Adminは問題プールとコンテスト
+作成ページへ移行可能
+
+- /coordinate/problems/$user-name <br>
+自分の作っている問題一覧+新しい問題作成 問題爆破もここで(コンテストに割り当てられていないもののみ)
+
+- /coordinate/problems/$user-name/$problem-name <br>
+問題編集 議論
+
+- /coordinate/problems/pool <br>
+問題プール Adminのみアクセス可能
+
+- /coordinate/contests <br>
+Adminのみアクセス可能 現在のコンテスト一覧に加えて新しくコンテストが開ける。
+
+- /coordinate/contest/$contest-name <br>
+コンテスト編集

@@ -1,6 +1,6 @@
-package com.nazonazo_app.shit_forces
+package com.nazonazo_app.shit_forces.problem
 
-data class Problem(
+data class NazonazoInfo(
     val name: String,
     val contestName: String,
     val point: Int,

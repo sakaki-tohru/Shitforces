@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar} from 'react-bootstrap';
+import {Nav, Navbar} from 'react-bootstrap';
 import {Link} from "react-router-dom";
 import './index.css';
 /*
@@ -11,18 +11,22 @@ import './index.css';
 export default class Header extends React.Component {
   render() {
     return(
-      <Navbar bg="dark">
-        <Navbar.Brand className="mr-auto">Brand text</Navbar.Brand>
-        <Link to={"/signin"}>
-          <button
-            className="btn btn-primary"
-            type="submit">Signin</button>
-        </Link>
-        <Link to={"/login"}>
-          <button
-            className="btn btn-primary"
-            type="submit">Login</button>
-        </Link>
+      <Navbar bg="dark" variant={"dark"}>
+        <Nav.Link className={"mr-auto"}>
+          <Link to={"/"}>
+            <Navbar.Brand>Shitforces</Navbar.Brand>
+          </Link>
+        </Nav.Link>
+        <Nav.Link>
+          <Link to={"/signin"}>
+            <Navbar.Brand variant={"primary"}>Signin</Navbar.Brand>
+          </Link>
+        </Nav.Link>
+        <Nav.Link>
+          <Link to={"/login"}>
+            <Navbar.Brand variant={"primary"}>Login</Navbar.Brand>
+          </Link>
+        </Nav.Link>
       </Navbar>
     );
   }

@@ -6,5 +6,5 @@ import org.springframework.jdbc.core.RowMapper
 import org.springframework.stereotype.Repository
 
 @Repository
-class ContestRepository(jdbcTemplate: JdbcTemplate) {
+class ContestsRepository(jdbcTemplate: JdbcTemplate) {
 }
