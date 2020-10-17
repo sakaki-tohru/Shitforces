@@ -26,7 +26,7 @@ class ContestCard extends React.Component {
       <div className="contest-card card">
         <div className="contest-card-body card-body">
           <Link to={contestPath}>
-            <h2 className="card-titl contest-card-title">
+            <h2 className="card-title contest-card-title">
               {contestInfo.title}
             </h2>
           </Link>

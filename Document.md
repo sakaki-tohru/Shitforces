@@ -1,8 +1,10 @@
 # ビルド
 npmを利用しているのでnodeのパスを通す必要がある。<br>
 実行前に、/frontend にてnpm install を実行。
-Spring boot(Gradle)が動かせるIDE(IntelliJのみ確認済み)なら実行ボタンで動かせる。
-そうでなくとも gradlew bootrun でも実行可能。<br>
+Spring boot(Gradle)が動かせるIDE(IntelliJのみ確認済み)なら実行ボタンで動かせる。<br>
+ShitForcesApplication が見つからないみたいなことをIntelliJに言われたら、
+Spring bootのEdit Configuration から Use classpath module をいじる。<br>
+gradleを使うなら、 gradlew bootrun でも実行可能。<br>
 成功すると、localhost:8080に環境が立ち上がる。
 
 # フロントエンドについて

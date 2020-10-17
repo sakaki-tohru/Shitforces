@@ -24,6 +24,18 @@ class AccountController(private val accountInfoRepository: AccountsInfoRepositor
     @GetMapping("db-access/all-account")
     fun getAllAccount(@RequestParam("page") page: String,
                       @RequestParam("limit") limit: Int): String{
-        return "hello"
+        return ""
     }
+    /*
+    @GetMapping("db-access/get-by-name/{accountName}")
+    fun getAccountByName(@PathVariable("accountName") accountName: String): String {
+        val accountResponse = try {
+            val getUser = accountInfoRepository.findByUserName(accountName)
+            Response(true, Gson().toJson(getUser ?: ""))
+        } catch (e: Exception) {
+            Response(false, e.toString())
+        }
+        return Gson().toJson(accountResponse)
+    }
+     */
 }

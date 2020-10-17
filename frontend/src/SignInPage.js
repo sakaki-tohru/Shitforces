@@ -1,6 +1,6 @@
 import React from "react";
 import {Form, Button} from "react-bootstrap";
-import HttpRequest from "./share-func/HTTPRequest";
+import HttpRequest from "./share-func/HttpRequest";
 // URL: /sighin
 const MAX_LENGTH = 20;
 const MIN_LENGTH = 4;
