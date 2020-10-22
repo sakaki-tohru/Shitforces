@@ -1,6 +1,5 @@
 package com.nazonazo_app.shit_forces.account
 
-import com.nazonazo_app.shit_forces.account.AccountInfo
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.security.crypto.bcrypt.BCrypt
@@ -26,7 +25,7 @@ class AccountsInfoRepository(private val jdbcTemplate: JdbcTemplate) {
         } else {
             val newUser = AccountInfo(accountName, 0, hashPassword(password))
             jdbcTemplate.update("INSERT INTO accountInfo(userName, rating, passwordHash) VALUES ( ?, ?, ? )",
-                newUser.userName, newUser.rating, newUser.passwordHash)
+                newUser.name, newUser.rating, newUser.passwordHash)
             return newUser
         }
     }

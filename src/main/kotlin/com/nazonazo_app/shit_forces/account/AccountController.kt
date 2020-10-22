@@ -9,8 +9,8 @@ class AccountController(private val accountInfoRepository: AccountsInfoRepositor
 
     private data class Response(val result: Boolean, val statement: String = "")
     data class RequestedAccount @JsonCreator constructor(val name: String, val password: String)
+    private data class AccountInfoForHttpRequest(val accountName: String, val rating: Int)
 
-    //TODO: 何故かレスポンスを返さないので返せるように 静的リソースへのPOSTアクセスがキーワード?
     @RequestMapping("db-access/new-account",
             headers = ["Content-Type=application/json"],
             method = [RequestMethod.POST])
@@ -32,11 +32,14 @@ class AccountController(private val accountInfoRepository: AccountsInfoRepositor
     fun getAccountByName(@PathVariable("accountName") accountName: String): String {
         val accountResponse = try {
             val getUser = accountInfoRepository.findByUserName(accountName)
-            Response(true, Gson().toJson(getUser ?: ""))
+            if (getUser == null) {
+                throw Error("User Not Found")
+            } else {
+                Response(true, Gson().toJson(AccountInfoForHttpRequest(getUser.name, getUser.rating)))
+            }
         } catch (e: Exception) {
             Response(false, e.toString())
         }
-        println(accountResponse)
         return Gson().toJson(accountResponse)
     }
 }
