@@ -36,6 +36,9 @@ SignInPage.jsによるアカウント作成ページ。<br>
 - /login <br>
 ユーザー名とパスワード周りは/signinと同じ。<br>
 
+- /account/$accountName <br>
+アカウント情報
+
 - /contest/$contestName <br>
 $contestNameはコンテストの名前、問題とかがある
 参加可能は、出た問題に関わっているWriter Admin権限有は参加不可。
@@ -44,10 +47,10 @@ $contestNameはコンテストの名前、問題とかがある
 Writer Adminのみアクセス可能。Writerは作問ページへ、Adminは問題プールとコンテスト
 作成ページへ移行可能
 
-- /coordinate/problems/$user-name <br>
+- /coordinate/problems/$accountName <br>
 自分の作っている問題一覧+新しい問題作成 問題爆破もここで(コンテストに割り当てられていないもののみ)
 
-- /coordinate/problems/$user-name/$problem-name <br>
+- /coordinate/problems/$accountName/$problem-name <br>
 問題編集 議論
 
 - /coordinate/problems/pool <br>
