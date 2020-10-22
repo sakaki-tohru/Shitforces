@@ -9,7 +9,7 @@ class AccountController(private val accountInfoRepository: AccountsInfoRepositor
 
     private data class Response(val result: Boolean, val statement: String = "")
     data class RequestedAccount @JsonCreator constructor(val name: String, val password: String)
-    private data class AccountInfoForHttpRequest(val accountName: String, val rating: Int)
+    private data class AccountInfoForHttpRequest(val name: String, val rating: Int)
 
     @RequestMapping("db-access/new-account",
             headers = ["Content-Type=application/json"],
@@ -31,11 +31,11 @@ class AccountController(private val accountInfoRepository: AccountsInfoRepositor
     @GetMapping("db-access/get-by-name/{accountName}")
     fun getAccountByName(@PathVariable("accountName") accountName: String): String {
         val accountResponse = try {
-            val getUser = accountInfoRepository.findByUserName(accountName)
-            if (getUser == null) {
-                throw Error("User Not Found")
+            val getAccount = accountInfoRepository.findByAccountName(accountName)
+            if (getAccount == null) {
+                throw Exception("Account Not Found")
             } else {
-                Response(true, Gson().toJson(AccountInfoForHttpRequest(getUser.name, getUser.rating)))
+                Response(true, Gson().toJson(AccountInfoForHttpRequest(getAccount.name, getAccount.rating)))
             }
         } catch (e: Exception) {
             Response(false, e.toString())

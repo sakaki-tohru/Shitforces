@@ -16,9 +16,9 @@ class ShitforcesApplication {
 			)""")
     }
     @Bean
-    fun createUserInfoDataBase(jdbcTemplate: JdbcTemplate) = CommandLineRunner {
+    fun createAccountInfoDataBase(jdbcTemplate: JdbcTemplate) = CommandLineRunner {
         jdbcTemplate.execute("""CREATE TABLE IF NOT EXISTS accountInfo (
-				userName     CHAR    PRIMARY KEY,
+				name         CHAR    PRIMARY KEY,
 				rating	     INT,
 				passwordHash CHAR 
 		)""")

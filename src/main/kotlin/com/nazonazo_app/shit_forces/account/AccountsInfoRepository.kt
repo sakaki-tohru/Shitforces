@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository
 @Repository
 class AccountsInfoRepository(private val jdbcTemplate: JdbcTemplate) {
     private val rowMapper = RowMapper<AccountInfo> { rs, _ ->
-        AccountInfo(rs.getString("userName"), rs.getInt("rating"), rs.getString("passwordHash"))
+        AccountInfo(rs.getString("name"), rs.getInt("rating"), rs.getString("passwordHash"))
     }
     fun findAll(): List<AccountInfo> =
-            jdbcTemplate.query("SELECT userName, rating, passwordHash FROM accountInfo", rowMapper)
+            jdbcTemplate.query("SELECT name, rating, passwordHash FROM accountInfo", rowMapper)
 
     private fun hashPassword(password: String): String {
         val salt: String = BCrypt.gensalt()
@@ -20,20 +20,20 @@ class AccountsInfoRepository(private val jdbcTemplate: JdbcTemplate) {
     }
 
     fun createAccount(accountName: String, password: String): AccountInfo? {
-        if (findByUserName(accountName) != null && false) {
+        if (findByAccountName(accountName) != null && false) {
             return null
         } else {
-            val newUser = AccountInfo(accountName, 0, hashPassword(password))
-            jdbcTemplate.update("INSERT INTO accountInfo(userName, rating, passwordHash) VALUES ( ?, ?, ? )",
-                newUser.name, newUser.rating, newUser.passwordHash)
-            return newUser
+            val newAccount = AccountInfo(accountName, 0, hashPassword(password))
+            jdbcTemplate.update("INSERT INTO accountInfo(name, rating, passwordHash) VALUES ( ?, ?, ? )",
+                newAccount.name, newAccount.rating, newAccount.passwordHash)
+            return newAccount
         }
     }
 
-    fun findByUserName(userName: String): AccountInfo? {
+    fun findByAccountName(accountName: String): AccountInfo? {
         val accounts = jdbcTemplate.query(
-                "SELECT userName, rating, passwordHash FROM accountInfo WHERE userName = ?",
-                     rowMapper, userName)
+                "SELECT name, rating, passwordHash FROM accountInfo WHERE name = ?",
+                     rowMapper, accountName)
 
         return if (accounts.isEmpty()) null
         else accounts[0]
