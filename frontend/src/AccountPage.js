@@ -1,46 +1,65 @@
 import React from "react";
-import HttpRequest from "./share-func/HttpRequest";
 import PropTypes from 'prop-types';
+import HttpGetOrHeadRequest from "./share-func/HttpGetOrHeadRequest";
 
 
 // URL: /accounts/$accountName
 
-function AccountInformationBody(props, accountName) {
+function AccountInformationBody(props) {
   return (
     <div>
-      <p>{accountName}</p>
+      <p>{props.name}</p>
       <p>{props.rating}</p>
     </div>
   );
 }
+function AccountNotFound() {
+  return(
+    <div>
+      <p>アカウントが見つかりませんでした</p>
+    </div>
+  );
+}
 AccountInformationBody.propTypes = {
-  rating: PropTypes.number
+  rating: PropTypes.number,
+  name: PropTypes.string
 };
-export default class AccountPage extends React.component {
+
+export default class AccountPage extends React.Component {
   constructor(props) {
     super(props);
-    const splitUrl = window.location.href.split("/");
-    const accountName = splitUrl[splitUrl.length - 1];
     this.getAccountInformation = this.getAccountInformation.bind(this);
     this.state = {
-      accountName: accountName
+      accountInfo: <div/>
     };
+    this.getAccountInformation();
   }
-  async getAccountInformation() {
-    const fetchTo = window.location.protocol + "db-access/get-by-name/" + this.state.accountName;
-    const accountInfo =  await HttpRequest(fetchTo, "", "GET")
+  getAccountInformation() {
+    const splitUrl = window.location.href.split("/");
+    const accountName = splitUrl[splitUrl.length - 1];
+    const fetchTo = "/db-access/get-by-name/"  + accountName;
+    HttpGetOrHeadRequest(fetchTo, "GET")
       .then(value => {
-        return value;
+        if (value.result === false) {
+          throw Error(value.statement);
+        }
+        const account = JSON.parse(value.statement);
+        console.log(account);
+        this.setState({
+          accountInfo: <AccountInformationBody name={account.name} rating={account.rating}/>
+        });
       })
       .catch(e => {
-        alert(e);
+        console.log(e);
+        this.setState({
+          accountInfo: <AccountNotFound />
+        });
       });
-    return AccountInformationBody(accountInfo, this.state.accountName);
   }
   render() {
     return (
       <div>
-        {this.getAccountInformation()}
+        {this.state.accountInfo}
       </div>
     );
   }

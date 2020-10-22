@@ -7,7 +7,7 @@ const MIN_LENGTH = 4;
 const USABLE_PATTERN = /^[a-zA-Z_-]+$/g;
 const TEXT_TERM = "アルファベットもしくは-_から成る、4字以上20字以下の文字列を入力して下さい。";
 
-function isValidUserNameOrPassWord(text) {
+function isValidAccountNameOrPassWord(text) {
   const matchRes = text.match(USABLE_PATTERN);
   const strLen = text.length;
   let res = true;
@@ -29,7 +29,7 @@ export default class SignInPage extends React.Component {
   async submitNewAccountCreate() {
     const accountName = this.accountNameInput.current.value;
     const password = this.passwordInput.current.value;
-    if (!isValidUserNameOrPassWord(accountName) || !isValidUserNameOrPassWord(password)) {
+    if (!isValidAccountNameOrPassWord(accountName) || !isValidAccountNameOrPassWord(password)) {
       alert(TEXT_TERM);
     } else {
       const fetchTo = "/db-access/new-account";

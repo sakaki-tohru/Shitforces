@@ -45,8 +45,8 @@ class ContestCard extends React.Component {
   }
 }
 ContestCard.propTypes = {
-  contestInfo: PropTypes.array,
-  contestId: PropTypes.string
+  contestInfo: PropTypes.object,
+  contestId: PropTypes.number
 };
 export default class MainPage extends React.Component {
   constructor(props) {
