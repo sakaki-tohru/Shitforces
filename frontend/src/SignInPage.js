@@ -32,7 +32,8 @@ export default class SignInPage extends React.Component {
     if (!isValidUserNameOrPassWord(accountName) || !isValidUserNameOrPassWord(password)) {
       alert(TEXT_TERM);
     } else {
-      const fetchTo = window.location.protocol + "/db-access/new-account";
+      const fetchTo = "/db-access/new-account";
+      console.log(fetchTo);
       const jsonBody = JSON.stringify({
         "name": accountName,
         "password": password,
