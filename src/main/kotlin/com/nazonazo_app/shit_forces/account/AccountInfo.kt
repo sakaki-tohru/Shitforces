@@ -6,5 +6,9 @@ data class AccountInfo(
         val passwordHash: String) {
 
     private val authority = AccountAuthority.GENERAL
-    private enum class AccountAuthority { GENERAL, WRITER, ADMINISTER }
+    private enum class AccountAuthority(auth: String) {
+        GENERAL("GENERAL"),
+        WRITER("WRITER"),
+        ADMINISTER("ADMINISTER")
+    }
 }
