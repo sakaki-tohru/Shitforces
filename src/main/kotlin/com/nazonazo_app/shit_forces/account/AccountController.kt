@@ -2,10 +2,13 @@ package com.nazonazo_app.shit_forces.account
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.google.gson.Gson
+import com.nazonazo_app.shit_forces.session.SessionController
 import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpServletResponse
 
 @RestController
-class AccountController(private val accountInfoRepository: AccountsInfoRepository) {
+class AccountController(private val accountInfoRepository: AccountsInfoRepository,
+                        private val sessionController: SessionController) {
 
     private data class Response(val result: Boolean, val statement: String = "")
     data class RequestedAccount @JsonCreator constructor(val name: String, val password: String)
@@ -23,11 +26,22 @@ class AccountController(private val accountInfoRepository: AccountsInfoRepositor
         }
         return Gson().toJson(response)
     }
+
+    @PostMapping("db-access/login-account",
+                 headers = ["Content-Type=application/json"])
+    fun loginAccount(@RequestBody requestAccount: RequestedAccount,
+                     servletResponse: HttpServletResponse): String {
+        val createSessionResult = sessionController.createNewSession(servletResponse)
+        val response = Response(createSessionResult.first, createSessionResult.second)
+        return Gson().toJson(response)
+    }
+
     @GetMapping("db-access/all-account")
     fun getAllAccount(@RequestParam("page") page: String,
                       @RequestParam("limit") limit: Int): String{
         return ""
     }
+
     @GetMapping("db-access/get-by-name/{accountName}")
     fun getAccountByName(@PathVariable("accountName") accountName: String): String {
         val accountResponse = try {

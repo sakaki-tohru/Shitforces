@@ -1,3 +1,5 @@
+package com.nazonazo_app.shit_forces.session
+
 import lombok.Data
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
